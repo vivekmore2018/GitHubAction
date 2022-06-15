@@ -1,0 +1,6 @@
+{
+  "client_id": "command-center-e5512ebe68c5",
+  "client_secret": "6aaf71d3d54648eb8c9371638ebcaa26",
+  "base_url": "https://iwscc.athocdevo.com",
+  "aws_base_url": "https://4lmaihkh3l.execute-api.us-east-1.amazonaws.com/prod/"
+}

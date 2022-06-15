@@ -1,0 +1,25 @@
+name: Configure Production Environment
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Latest Repo
+        uses: actions/checkout@v2
+
+      - name: Update client_id configuration
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: src/static/config.json
+          field: client_id
+          value: ${{ secrets.client_id }}
+
+      - name: Update client_secret configuration
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: src/static/config.json
+          field: client_secret
+          value: ${{ secrets.client_secret }}
