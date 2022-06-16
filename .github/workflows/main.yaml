@@ -1,8 +1,15 @@
 name: Configure Production Environment
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "API Base URL"
+        required: true
+        default: ""
+      settingBaseURL:
+        description: "Setting Base Base URL"
+        required: true
+        default: ""
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -35,6 +42,20 @@ jobs:
           file: build/static/config.json
           field: client_secret
           value: ${{ secrets.client_secret }}
+
+      - name: Update Base URL
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: build/static/config.json
+          field: base_url
+          value: ${{ github.event.inputs.environment }}
+
+      - name: Update AWS Base URL
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: build/static/config.json
+          field: aws_base_url
+          value: ${{ github.event.inputs.settingBaseURL }}
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
